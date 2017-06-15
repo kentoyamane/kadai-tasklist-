@@ -14,7 +14,7 @@ class TasklistsController < ApplicationController
   def create
     @tasklists = Tasklist.new(tasklist_params)
     
-    if @tasklist.save
+    if @tasklists.save
       flash[:success] = 'タスクが正常に投稿されました'
       redirect_to @tasklists
     else
@@ -30,7 +30,7 @@ class TasklistsController < ApplicationController
   def update
     @tasklists = Tasklist.find(params[:id])
 
-    if tasklists.update(tasklist_params)
+    if Tasklist.update(tasklist_params)
       flash[:success] = 'タスクは正常に更新されました'
       redirect_to @tasklists
     else
