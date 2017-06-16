@@ -1,12 +1,12 @@
-<%= form_for(tasklist) do |f| %>
+<%= form_for(task) do |f| %>
 
   
-<% if tasklist.errors.any? %>
+<% if task.errors.any? %>
 
     <div id="error_explanation">
       <ul>
         
-<% tasklist.errors.full_messages.each do |message| %>
+<% task.errors.full_messages.each do |message| %>
 
           <li>
 <%= message %>
