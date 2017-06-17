@@ -1,22 +1,22 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    @tasks = Task.all
+    @task = Task.order(created_at: :desc).page(params[:page]).per(3)
   end
 
   def show
   end
 
   def new
-    @tasks = Task.new
+    @task = Task.new
   end
 
   def create
-    @tasks = Task.new(task_params)
+    @task = Task.new(task_params)
 
-    if @tasks.save
+    if @task.save
       flash[:success] = 'タスクが正常に投稿されました'
-      redirect_to @tasks
+      redirect_to @task
     else
       flash.now[:danger] = 'タスクが投稿されませんでした'
       render :new
@@ -27,10 +27,9 @@ class TasksController < ApplicationController
   end
 
   def update
-    set_task
-    if @tasks.update(task_params)
+    if @task.update(task_params)
       flash[:success] = 'タスクは正常に更新されました'
-      redirect_to @tasks
+      redirect_to @task
     else
       flash.now[:danger] = 'タスクは更新されませんでした'
       render :edit
@@ -38,17 +37,16 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    set_task
-    @tasks.destroy
+    @task.destroy
     
     flash[:success] = 'タスクは正常に削除されました'
-    redirect_to messages_url
+    redirect_to root_path
   end
   
   private
   
   def set_task
-    @tasks = Task.find(params[:id])
+    @task = Task.find(params[:id])
   end
   
   # Strong Parameter
