@@ -1,7 +1,6 @@
 <h1>タスク一覧</h1>
 
-<% @task.any? %>
-
+<% if @task.any? %>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -11,32 +10,18 @@
       </tr>
     </thead>
     <tbody>
-
-<% @task.each do |task| %>
-     
-    <tr>
-      <td>
-<%= link_to task.id, task %>
-</td>
-      <td>
-<%= task.status %>
-</td>
-      <td>
-<%= task.content %>
-</td>
-
-    </tr>
-
-
+      <% @task.each do |task| %>
+        <tr>
+          <td><%= link_to task.id, task %></td>
+          <td><%= task.status %></td>
+          <td><%= task.content %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
   <div>
-  </div>
-  
-<%= paginate @task %>
-  
+    <%= paginate @task %>
   </div>
 <% end %>
-
 
 <%= link_to '新規課題の投稿', new_task_path, class: "btn btn-primary" %>
